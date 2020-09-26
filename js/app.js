@@ -25,14 +25,20 @@
  * 
 */
 const ul_element = document.querySelector('#navbar__list');
-let li_element = document.createElement('li');
+let li_element, a_element, id_values;
 let section_elements = document.querySelectorAll('section');
 for(let i = 0; i < section_elements.length; i++){
+    id_values =  section_elements[i].getAttribute('id') 
     console.log('i is ' + (i + 1));
     console.log(section_elements[i].getAttribute('data-nav'));
+    console.log(id_values);
     li_element = document.createElement('li');
-    li_element.textContent = section_elements[i].getAttribute('data-nav');
-    ul_element.appendChild(li_element);
+    a_element = document.createElement('a');
+    a_element.textContent = section_elements[i].getAttribute('data-nav');
+    a_element.setAttribute('href', '#'+id_values)
+    a_element.setAttribute('style', 'padding:10px; font-size:20px')
+    // li_element.appendChild(a_element);
+    ul_element.appendChild(li_element).appendChild(a_element);
 } 
 
 
