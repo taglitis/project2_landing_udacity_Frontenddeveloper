@@ -31,35 +31,14 @@ let li_element, a_element, id_values;
 let section_elements = document.querySelectorAll('section');
 
 
-// function createNavig(){
-//     for(let i = 0; i < section_elements.length; i++){
-//         id_values =  section_elements[i].getAttribute('id') 
-//         // console.log('i is ' + (i + 1));
-//         // console.log(section_elements[i].getAttribute('data-nav'));
-//         // console.log(id_values);
-//         li_element = document.createElement('li');
-//         li_element.setAttribute('class', 'menu__link');
-//         a_element = document.createElement('a');
-//         a_element.textContent = section_elements[i].getAttribute('data-nav');
-//         a_element.setAttribute('href', '#'+id_values)
-//         // a_element.setAttribute('style', 'padding:10px; font-size:20px');
-//         ul_element.appendChild(li_element).appendChild(a_element);
-//     }
-// }
-
-
-// function scrollToSection(curretn_section){
-//     console.log(curretn_section)
-//     section_elements[i].scrollIntoView({behavior:"smooth", block:"start"});
-// }
-
 function createNavig(){
     for(let i = 0; i < section_elements.length; i++){
         id_values =  section_elements[i].getAttribute('id') 
         li_element = document.createElement('li');
         li_element.setAttribute('class', 'menu__link');
         li_element.textContent = section_elements[i].getAttribute('data-nav');
-        console.log(section_elements[i].getAttribute('data-nav'));
+        li_element.classList.add(id_values)
+        // console.log(section_elements[i].getAttribute('data-nav'));
         ul_element.appendChild(li_element);        
         li_element.addEventListener('click', function(){
             section_elements[i].scrollIntoView({behavior:"smooth", block:"end"});
@@ -77,20 +56,41 @@ function createNavig(){
 createNavig()
 
 
-// const li_navigation = document.getElementsByClassName("menu__link"); 
-// // console.log(section_elements[0]);
-// function eventListenNavClick(){
-//     for (var i = 0; i < li_navigation.length; i++){
-//         li_navigation[i].addEventListener('click', function(){
-//             // console.log(section_elements[i]);
-//             const current = document.getElementsByClassName("active");
-//             if (current.length > 0){
-//                 current[0].className = current[0].className.replace(" active", "");
-//             }   
-//             this.className += " active";
-//         })
-//     }
-// }    
+/*Checks which part of the Page is in View, and changes its color*/
+function partInView () {
+    function InViewport(element) {
+        const dimentions = element.getBoundingClientRect();
+        return (
+            dimentions.top >= 0 &&
+            dimentions.left >= 0 &&
+            dimentions.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            dimentions.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+
+    }    
+
+
+    for (let item of section_elements) {
+        console.log("section_elements")
+        console.log(item);        
+        window.addEventListener("scroll", function(event) {
+            li_local = document.querySelector('.'+item.id);
+            console.log("li_local")
+            console.log(li_local);
+            if (InViewport(item)) {
+            item.classList.add("your-active-class");
+            li_local.classList.add("active");
+            } else {
+            item.classList.remove("your-active-class");
+            li_local.classList.remove("active");
+        }
+        },
+        true
+        );
+    }
+}
+
+partInView();
 
 // eventListenNavClick()        
         
