@@ -71,6 +71,7 @@ section {
     padding-left: 0;
     margin: 0;
     text-align: right;
+    list-style-type: none;
 }
 
 .navbar__menu li {
@@ -89,6 +90,11 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+}
+
+.navbar__menu .active {
+    background-color: #666;
+    color: white;
 }
 
 /* Header Styles */
