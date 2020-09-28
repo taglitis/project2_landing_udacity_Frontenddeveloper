@@ -41,7 +41,7 @@ function createNavig(){
         // console.log(section_elements[i].getAttribute('data-nav'));
         ul_element.appendChild(li_element);        
         li_element.addEventListener('click', function(){
-            section_elements[i].scrollIntoView({behavior:"smooth", block:"end"});
+            section_elements[i].scrollIntoView({behavior:"smooth", block:"center"});
             const current = document.getElementsByClassName("active");
             if (current.length > 0){
                 current[0].className = current[0].className.replace(" active", "");
@@ -52,11 +52,12 @@ function createNavig(){
 }
 
 
-
 createNavig()
 
 
 /*Checks which part of the Page is in View, and changes its color*/
+/* Thanks to Toni's post where I got an idea how to get section dimentions*/
+
 function partInView () {
     function InViewport(element) {
         const dimentions = element.getBoundingClientRect();
