@@ -25,7 +25,7 @@
  * 
 */
 
-
+window.scrollTo(0,0);
 const ul_element = document.querySelector('#navbar__list');
 let li_element, a_element, id_values;
 let section_elements = document.querySelectorAll('section');
@@ -39,17 +39,18 @@ function createNavig(){
         li_element.textContent = section_elements[i].getAttribute('data-nav');
         li_element.classList.add(id_values)
         ul_element.appendChild(li_element); 
-        li_element.addEventListener('click', () => {
+        li_element.addEventListener('click', function() {
             const head_section = document.querySelector(".page__header");
             const current = document.getElementsByClassName("active");
             const dimentions_section = section_elements[i].getBoundingClientRect();
             const dimentions_head_section = head_section.getBoundingClientRect();
             console.log(dimentions_head_section.bottom, ', ', dimentions_section.top, ', ' , -dimentions_head_section.bottom + dimentions_section.top)
-            window.scrollBy({top:(-dimentions_head_section.bottom + dimentions_section.top), left: dimentions_section.left , behavior:'smooth' });
-            if (current.length > 0){
-                current[0].className = current[0].className.replace(" active", "");
+            window.scrollBy({top:(-dimentions_head_section.bottom + dimentions_section.top), left: dimentions_section.left, behavior:'smooth' });
+            if (current.length = 0){
+                // current[0].className = current[0].className.replace(" active", "");
+                this.className += " active";
             }   
-            this.className += " active";
+            
         })
     }
 }
@@ -66,15 +67,15 @@ function partInView () {
         const dimentions = element.getBoundingClientRect();
         const head_section = document.querySelector(".page__header");
         const dimentions_head_section = head_section.getBoundingClientRect();
-        console.log('top', dimentions.top , (dimentions_head_section.top - (dimentions.bottom- dimentions.top)));
+        console.log('top', dimentions.top , (dimentions_head_section.top - (dimentions.bottom - dimentions.top)));
         console.log('bottom' ,dimentions.bottom , window.innerHeight);
         return (            
-            dimentions.top >= (dimentions_head_section.top - (dimentions.bottom- dimentions.top)/3) && 
-            dimentions.bottom <= window.innerHeight 
-            // dimentions.top >= 0 &&
-            // dimentions.left >= 0 &&
-            // dimentions.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            // dimentions.right <= (window.innerWidth || document.documentElement.clientWidth)
+            // dimentions.top >= (dimentions_head_section.top - (dimentions.bottom - dimentions.top)) && 
+            // dimentions.bottom <= window.innerHeight 
+            dimentions.top >= 0 &&
+            dimentions.left >= 0 &&
+            dimentions.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            dimentions.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
 
     }    
