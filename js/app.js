@@ -38,17 +38,20 @@ function createNavig(){
         li_element.setAttribute('class', 'menu__link');
         li_element.textContent = section_elements[i].getAttribute('data-nav');
         li_element.classList.add(id_values)
-        // console.log(section_elements[i].getAttribute('data-nav'));
-        ul_element.appendChild(li_element);        
+        ul_element.appendChild(li_element); 
         li_element.addEventListener('click', function(){
-            section_elements[i].scrollIntoView({behavior:"smooth", block:"center"});
+            const head_section = document.querySelector(".page__header");
             const current = document.getElementsByClassName("active");
+            const dimentions_section = section_elements[i].getBoundingClientRect();
+            const dimentions_head_section = head_section.getBoundingClientRect();
+            console.log(dimentions_head_section.bottom, ', ', dimentions_section.top, ', ' , -dimentions_head_section.bottom + dimentions_section.top)
+            window.scrollBy({top:(-dimentions_head_section.bottom + dimentions_section.top), left: dimentions_section.left , behavior:'smooth' });
             if (current.length > 0){
                 current[0].className = current[0].className.replace(" active", "");
             }   
             this.className += " active";
-        }
-    )}
+        })
+    }
 }
 
 
@@ -61,23 +64,25 @@ createNavig()
 function partInView () {
     function InViewport(element) {
         const dimentions = element.getBoundingClientRect();
-        return (
-            dimentions.top >= 0 &&
-            dimentions.left >= 0 &&
-            dimentions.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            dimentions.right <= (window.innerWidth || document.documentElement.clientWidth)
+        const head_section = document.querySelector(".page__header");
+        const dimentions_head_section = head_section.getBoundingClientRect();
+        console.log('top', dimentions.top , (dimentions_head_section.top - (dimentions.bottom- dimentions.top)));
+        console.log('bottom' ,dimentions.bottom , window.innerHeight);
+        return (            
+            dimentions.top >= (dimentions_head_section.top - (dimentions.bottom- dimentions.top)/3) && 
+            dimentions.bottom <= window.innerHeight 
+            // dimentions.top >= 0 &&
+            // dimentions.left >= 0 &&
+            // dimentions.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            // dimentions.right <= (window.innerWidth || document.documentElement.clientWidth)
         );
 
     }    
 
 
     for (let item of section_elements) {
-        console.log("section_elements")
-        console.log(item);        
         window.addEventListener("scroll", function(event) {
             li_local = document.querySelector('.'+item.id);
-            console.log("li_local")
-            console.log(li_local);
             if (InViewport(item)) {
             item.classList.add("your-active-class");
             li_local.classList.add("active");
