@@ -39,7 +39,7 @@ function createNavig(){
         li_element.textContent = section_elements[i].getAttribute('data-nav');
         li_element.classList.add(id_values)
         ul_element.appendChild(li_element); 
-        li_element.addEventListener('click', function(){
+        li_element.addEventListener('click', () => {
             const head_section = document.querySelector(".page__header");
             const current = document.getElementsByClassName("active");
             const dimentions_section = section_elements[i].getBoundingClientRect();
