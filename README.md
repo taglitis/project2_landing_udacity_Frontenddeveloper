@@ -1,13 +1,8 @@
-# Landing Page Project
+# Landing Page for Projec 2 at Udacity Front End Developer Course
 
-## Table of Contents
+## DATA SPINNING
 
-* [Instructions](#instructions)
+The main idea of the project was to understand principals of Java Script and how it can be applied to DOM. While interacting with it, it is possible to add, remove DOM elements, change or add attributes. It provides great opportunities to manipulate with css proporties. 
 
-## Instructions
+Adding Java Scripts static pages become dynamic which attract end users' eyes.   
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
