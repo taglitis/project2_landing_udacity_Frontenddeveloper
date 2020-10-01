@@ -55,10 +55,10 @@ function createNavig(){
             const dimentions_head_section = head_section.getBoundingClientRect();
             //console.log(dimentions_head_section.bottom, ', ', dimentions_section.top, ', ' , -dimentions_head_section.bottom + dimentions_section.top)
             window.scrollBy({top:(-dimentions_head_section.bottom + dimentions_section.top), left: dimentions_section.left, behavior:'smooth' });
-            current_li[0].className = current_li[0].className.replace(" active", "");
-            this.className += " active";  
-            current_section.className = current_section.classList.remove("your-active-class"); 
-            choose_section.classList.add("your-active-class");                
+            // current_li[0].className = current_li[0].className.replace(" active", "");
+            // this.className += " active";  
+            // current_section.className = current_section.classList.remove("your-active-class"); 
+            // choose_section.classList.add("your-active-class");                
         })
     }
 }
@@ -67,45 +67,38 @@ function createNavig(){
 createNavig()
 
 
-// /*Checks which part of the Page is in View, and changes its color*/
-// /* Thanks to Toni's post where I got an idea how to get section dimentions*/
+/*Checks which part of the Page is in View, and changes its color*/
+/* Thanks to Toni's post where I got an idea how to get section dimentions*/
 
-// function partInView () {
-//     function InViewport(element) {
-//         const dimentions = element.getBoundingClientRect();
-//         const head_section = document.querySelector(".page__header");
-//         const dimentions_head_section = head_section.getBoundingClientRect();
-//         console.log('top', dimentions.top , (dimentions_head_section.top - (dimentions.bottom - dimentions.top)));
-//         console.log('bottom' ,dimentions.bottom , window.innerHeight);
-//         return (            
-//             // dimentions.top >= (dimentions_head_section.top - (dimentions.bottom - dimentions.top)) && 
-//             // dimentions.bottom <= window.innerHeight 
-//             dimentions.top >= 0 &&
-//             dimentions.left >= 0 &&
-//             dimentions.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-//             dimentions.right <= (window.innerWidth || document.documentElement.clientWidth)
-//         );
-
-//     }    
+function partInView () {
+    const dimentions_head_section = head_section.getBoundingClientRect();
+    function sectionActive(element) {
+        const dimentions = element.getBoundingClientRect();
+        return (            
+            dimentions.top <= dimentions_head_section.bottom + 1 && dimentions.bottom > dimentions_head_section.bottom + 1
+        );
+    }
+    
+    
 
 
-//     for (let item of section_elements) {
-//         window.addEventListener("scroll", function(event) {
-//             li_local = document.querySelector('.'+item.id);
-//             if (InViewport(item)) {
-//             item.classList.add("your-active-class");
-//             li_local.classList.add("active");
-//             } else {
-//             item.classList.remove("your-active-class");
-//             li_local.classList.remove("active");
-//         }
-//         },
-//         true
-//         );
-//     }
-// }
+    for (let item of section_elements) {
+            window.addEventListener("scroll", function() {
+                li_local = document.querySelector('.'+item.id);
+                if (sectionActive(item)) {
+                item.classList.add("your-active-class");
+                li_local.classList.add("active");                            
+                } else {
+                item.classList.remove("your-active-class");
+                li_local.classList.remove("active");
+            }
+            },
+            true
+            );
+    }
+}
 
-// partInView();
+partInView();
 
 // eventListenNavClick()        
         
