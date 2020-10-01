@@ -38,7 +38,7 @@ function createNavig(){
         li_element.classList.add(id_values);
         if (i == 0){li_element.classList.add('active');}
         ul_element.appendChild(li_element); 
-        li_element.addEventListener('click', function() {
+        li_element.addEventListener('click', function ()  {
             const current_li = document.getElementsByClassName("active");
             const current_section = document.querySelector(".your-active-class");
             const choose_section = document.querySelector("#"+this.classList[1]);
@@ -54,35 +54,45 @@ function createNavig(){
 
 /*Checks which part of the Page is in View, and changes its color*/
 /* Thanks to Toni's post where I got an idea how to get section dimentions*/
-
 function partInView () {
     const dimentions_head_section = head_section.getBoundingClientRect();
     function sectionActive(element) {
         const dimentions = element.getBoundingClientRect();
         return (            
-            dimentions.top <= dimentions_head_section.bottom + 1 && dimentions.bottom > dimentions_head_section.bottom + 1
+            dimentions.top <= dimentions_head_section.bottom + 5 && dimentions.bottom > dimentions_head_section.bottom + 5
         );
     }
     
- 
-    for (let item of section_elements) {
-            window.addEventListener("scroll", function() {
-                li_local = document.querySelector('.'+item.id);
-                if (sectionActive(item)) {
-                item.classList.add("your-active-class");
-                li_local.classList.add("active");                            
-                } else {
-                item.classList.remove("your-active-class");
-                li_local.classList.remove("active");
+    let timer = null;
+    let flagNavActive = -1;
+
+        window.addEventListener("scroll", function() {
+        if (flagNavActive == 1) {
+            createNavig(); 
+            flagNavActive = -1;
+        }
+        for (let item of section_elements) {   
+            li_local = document.querySelector('.'+item.id);
+            if (sectionActive(item)) {
+            // createNavig();
+            item.classList.add("your-active-class");
+            li_local.classList.add("active");                            
+            } else {
+            item.classList.remove("your-active-class");
+            li_local.classList.remove("active");
             }
+            if(timer != null) {
+                clearTimeout(timer); 
+            }
+            timer = setTimeout(function() {
+                ul_element.innerHTML = '';
+                flagNavActive = 1;
+            }, 5000)
+        }
             },
             true
             );
     }
-}
-
-
-
  
 /**
  * End Helper Functions
@@ -101,22 +111,9 @@ function main() {
 main();
 
 
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
 /**
  * End Main Functions
  * Begin Events
  * 
 */
 
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
