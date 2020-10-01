@@ -62,7 +62,7 @@ function partInView () {
             dimentions.top <= dimentions_head_section.bottom + 5 && dimentions.bottom > dimentions_head_section.bottom + 5
         );
     }
-    
+    // stop scrolling: https://stackoverflow.com/questions/4620906/how-do-i-know-when-ive-stopped-scrolling
     let timer = null;
     let flagNavActive = -1;
 
