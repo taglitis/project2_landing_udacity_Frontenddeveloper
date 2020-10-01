@@ -52,8 +52,6 @@ function createNavig(){
 
 
 
-
-
 /*Checks which part of the Page is in View, and changes its color*/
 /* Thanks to Toni's post where I got an idea how to get section dimentions*/
 
@@ -83,7 +81,7 @@ function partInView () {
     }
 }
 
-partInView();
+
 
  
 /**
