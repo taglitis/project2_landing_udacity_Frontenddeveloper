@@ -17,7 +17,9 @@
  * Define Global Variables
  * 
 */
-
+const ul_element = document.querySelector('#navbar__list');
+const section_elements = document.querySelectorAll('section');
+const head_section = document.querySelector(".page__header");
 
 /**
  * End Global Variables
@@ -26,45 +28,30 @@
 */
 
 
-const ul_element = document.querySelector('#navbar__list');
-let li_element, a_element, id_values;
-let section_elements = document.querySelectorAll('section');
-// const ul_element = document.querySelector('#navbar__list');
-console.log(ul_element);
-const head_section = document.querySelector(".page__header");
-// section_elements[0].scrollIntoView();
-
-
 function createNavig(){
     for(let i = 0; i < section_elements.length; i++){
-        id_values =  section_elements[i].getAttribute('id');
+        let id_values =  section_elements[i].getAttribute('id');
         // console.log(id_values);
-        li_element = document.createElement('li');
+        let li_element = document.createElement('li');
         li_element.setAttribute('class', 'menu__link');
         li_element.textContent = section_elements[i].getAttribute('data-nav');
         li_element.classList.add(id_values);
         if (i == 0){li_element.classList.add('active');}
         ul_element.appendChild(li_element); 
         li_element.addEventListener('click', function() {
-            // const head_section = document.querySelector(".page__header");
             const current_li = document.getElementsByClassName("active");
             const current_section = document.querySelector(".your-active-class");
             const choose_section = document.querySelector("#"+this.classList[1]);
-            // console.log(current_section);
             const dimentions_section = section_elements[i].getBoundingClientRect();
             const dimentions_head_section = head_section.getBoundingClientRect();
-            //console.log(dimentions_head_section.bottom, ', ', dimentions_section.top, ', ' , -dimentions_head_section.bottom + dimentions_section.top)
             window.scrollBy({top:(-dimentions_head_section.bottom + dimentions_section.top), left: dimentions_section.left, behavior:'smooth' });
-            // current_li[0].className = current_li[0].className.replace(" active", "");
-            // this.className += " active";  
-            // current_section.className = current_section.classList.remove("your-active-class"); 
-            // choose_section.classList.add("your-active-class");                
+             
         })
     }
 }
 
 
-createNavig()
+
 
 
 /*Checks which part of the Page is in View, and changes its color*/
@@ -79,9 +66,7 @@ function partInView () {
         );
     }
     
-    
-
-
+ 
     for (let item of section_elements) {
             window.addEventListener("scroll", function() {
                 li_local = document.querySelector('.'+item.id);
@@ -100,31 +85,24 @@ function partInView () {
 
 partInView();
 
-// eventListenNavClick()        
-        
-
-
-
-
-// function activateSection(){
-//     const scrollVert = window.pageYOffset;
-//     for(let i = 0; i < section_elements.length; i++){
-
-
-// }
-
-
-
-
-
-
+ 
 /**
  * End Helper Functions
  * Begin Main Functions
  * 
 */
 
-// build the nav
+function main() {
+    // build the nav
+    createNavig()
+    //capture scrolling and highlight active section and corresponding nav element
+    partInView();
+
+}
+
+main();
+
+
 
 
 // Add class 'active' to section when near top of viewport
